@@ -1,5 +1,9 @@
 # ssm2dotenv
 
+Inspired by [ssm-env](https://github.com/remind101/ssm-env). 
+
+Usually, if you are using libraries like [godotenv](https://github.com/joho/godotenv) to load environment variables from a `.env` file, but you won't like to place the secrets in the `.env` file, you can use `ssm2dotenv` command to load the secrets from AWS SSM Parameter Store.
+
 ## Usage
 
 Suppose that you have the following parameters in aws SSM:
@@ -9,7 +13,7 @@ Suppose that you have the following parameters in aws SSM:
 | /app-api/test/DB_DSN | postgres://xxx:yyyy/test_db |
 | /app-api/prod/DB_DSN | postgres://xxx:yyyy/prod_db |
 
-The sample env file
+And you have the following `sample.env` file:
 ```dotenv
 ENV=test
 DB_META_DSNS=ssm:///app-api/${env}/DB_DSN
@@ -22,7 +26,7 @@ Then, you can run the following command to get the env file
 $ ssm2dotenv --env test -i ./sample.env -o ./.env
 ```
 
-You will get the following env file
+So you can get the env file including secrets just only existing during the local development or your CI/CD pipeline. 
 
 ```dotenv
 ENV=test
