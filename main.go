@@ -89,8 +89,8 @@ type EnvItem struct {
 	IsSSMParameter bool
 }
 
-func GetEnvItems(envContent []byte, env string) (map[string]EnvItem, error) {
-	items := make(map[string]EnvItem)
+func GetEnvItems(envContent []byte, env string) ([]EnvItem, error) {
+	items := make([]EnvItem, 0)
 
 	lines := strings.Split(string(envContent), "\n")
 	for _, line := range lines {
@@ -119,13 +119,12 @@ func GetEnvItems(envContent []byte, env string) (map[string]EnvItem, error) {
 			value = *parameter.Parameter.Value
 		}
 
-		items[name] = EnvItem{
+		items = append(items, EnvItem{
 			Name:           name,
 			Value:          value,
 			OriginValue:    originValue,
 			IsSSMParameter: isSSMParameter,
-		}
+		})
 	}
-
 	return items, nil
 }
