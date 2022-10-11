@@ -13,7 +13,7 @@ Suppose that you have the following parameters in aws SSM:
 | /app-api/test/DB_DSN | postgres://xxx:yyyy/test_db |
 | /app-api/prod/DB_DSN | postgres://xxx:yyyy/prod_db |
 
-And you have the following `sample.env` file:
+And you have the following `sample.env` template file:
 ```dotenv
 ENV=test
 DB_META_DSNS=ssm:///app-api/${env}/DB_DSN
